@@ -1,0 +1,76 @@
+
+/*
+    Company tags  : Microsoft
+    Leetcode Link : https://leetcode.com/problems/amount-of-time-for-binary-tree-to-be-infected/
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public void convertToGraph(TreeNode curr,int parent,HashMap<Integer,HashSet<Integer>> adjacencyList){
+        if(curr==null)
+        return;
+        if(!adjacencyList.containsKey(curr.val))
+        {
+            adjacencyList.put(curr.val,new HashSet<Integer>());
+        }
+        HashSet<Integer> adjacencySet = adjacencyList.get(curr.val);
+        if(parent != -1)
+        {
+            adjacencySet.add(parent);
+        }
+        if(curr.left!=null)
+        {
+            adjacencySet.add(curr.left.val);
+        }
+        if(curr.right!=null)
+        {
+            adjacencySet.add(curr.right.val);
+        }
+        convertToGraph(curr.left,curr.val,adjacencyList);
+        convertToGraph(curr.right,curr.val,adjacencyList);
+
+    }
+    public int amountOfTime(TreeNode root, int start) {
+        HashMap<Integer,HashSet<Integer>> adjacencyList = new HashMap<>();
+        convertToGraph(root,-1,adjacencyList);
+        Queue<Integer> bfs = new LinkedList<>();
+        bfs.add(start);
+        int minute=0;
+        HashSet<Integer> visited =new HashSet<>();
+        visited.add(start);
+        while(!bfs.isEmpty())
+        {
+            
+            int levelSize = bfs.size();
+            while(levelSize>0)
+            {
+                int current = bfs.poll();
+                for(int num:adjacencyList.get(current)){
+                    if(!visited.contains(num))
+                    {
+                        visited.add(num);
+                        bfs.add(num);
+                    }
+                }
+                levelSize--;
+            }
+            minute++;
+            
+        }
+        return --minute;
+    }
+}
