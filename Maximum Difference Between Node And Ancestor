@@ -1,0 +1,53 @@
+/*
+https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/description/?envType=daily-question&envId=2024-01-11
+
+*/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int ans=0;
+   // private int rootval=0;
+    public int maxAncestorDiff(TreeNode root) {
+    //rootval=root.val;
+        HashMap<Integer,Integer> ancestorList = new HashMap<>();
+        checkDiff(root,-1,ancestorList);
+
+        return ans;
+    }
+    public void checkDiff(TreeNode curr,int parent,HashMap<Integer,Integer> ancestor)
+    {
+        if(curr==null)
+        return;       
+        if(!ancestor.containsKey(curr.val))
+        {
+            ancestor.put(curr.val,parent);
+            int parentIndex=ancestor.get(curr.val);
+            while(parentIndex!=-1)
+            {
+                if(Math.abs(curr.val-parentIndex)>ans)
+                ans=Math.abs(curr.val-parentIndex); 
+                //System.out.println(curr.val+"  "+parentIndex); 
+                parentIndex=ancestor.get(parentIndex); 
+            }
+        }
+        //System.out.println("Change");
+        if(curr.left!=null)
+           checkDiff(curr.left,curr.val,ancestor);
+           if(curr.right!=null)
+           checkDiff(curr.right,curr.val,ancestor);
+    }
+}
