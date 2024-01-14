@@ -1,0 +1,42 @@
+public class Solution {
+    public static boolean canAssign(int[] A, int minpage, int B){
+        int pages =0;
+        int students =1;
+        for(int i=0; i<A.length; i++){
+            if(pages+A[i]<=minpage){
+                pages+= A[i];
+            }else{
+                pages= A[i];
+                students++;
+                if(students>B){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public int books(int[] A, int B) {
+    int max =0;
+    int sum =0;
+    for(int i=0; i<A.length; i++){
+        max = Math.max(max, A[i]);
+        sum += A[i];
+    }
+    if(B>A.length){
+        return -1;
+    }
+    int s = max;
+    int e = sum;
+    int ans = -1;
+    while(s<=e){
+        int mid = (s+e)/2;
+        if(canAssign(A, mid ,B)){
+            ans = mid;
+            e= mid-1;
+        }else{
+            s= mid+1;
+        }
+    }
+    return ans;  
+    }
+}
