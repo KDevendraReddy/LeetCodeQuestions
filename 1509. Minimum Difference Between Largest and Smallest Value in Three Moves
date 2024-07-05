@@ -1,3 +1,5 @@
+The question is easy u just need to think properly.
+
 class Solution {
     public int minDifference(int[] nums) {
         if(nums.length<=4)
