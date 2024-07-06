@@ -1,0 +1,24 @@
+//06-07-2024
+https://youtu.be/2AXYmriV8FM
+
+class Solution {
+    public int passThePillow(int n, int time) {
+
+        int trip = time/(n-1);
+        int mod = time % (n-1);
+
+        if(trip %2==0)
+        return 1+mod;
+        else
+        return n-mod;
+    }
+}
+
+
+
+
+//n 1 2 3 4 3 2 1 2 3 4 3   2  1 2 3
+//t 0 1 2 3 4 5 6 7 8 9 10 11 12 3 4
+
+//n-1 p is with last person
+//2*(n-1) p returned to 1
