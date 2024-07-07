@@ -1,0 +1,22 @@
+class Solution {
+    public int numWaterBottles(int numBottles, int numExchange) {
+        int ans=numBottles;
+
+        int totalEmptyBottles=numBottles;
+        while(totalEmptyBottles>=numExchange)
+        {
+            ans += totalEmptyBottles/numExchange;
+            totalEmptyBottles=(totalEmptyBottles%numExchange)+(totalEmptyBottles/numExchange);
+        }
+        return ans;
+
+
+        
+    }
+}
+/*
+numbottles + emptybottles1/numExchange + (emptybottles1/numExchange)+(emptybottles1%numExchange)/numexhcange
+
+emptybottles1 = (numbottles )
+emptybottles2 = (emptybottles1/numExchange)+(emptybottles1%numExchange)
+*/
