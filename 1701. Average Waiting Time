@@ -1,0 +1,26 @@
+class Solution {
+    public double averageWaitingTime(int[][] customers) {
+        long average = 0;
+        double total = 1.00000 * customers.length;
+        int st=0,et=0;
+        for(int i=0;i<customers.length;i++)
+        {
+            st=Math.max(customers[i][0],et);
+            et=st+customers[i][1];
+           // System.out.println(et-customers[i][0]);
+            average+=(et-customers[i][0]);
+        }
+        double ans =0.00000;
+        ans= average/total;
+        return ans;
+        
+    }
+}
+/*
+[[5,2],[5,4],[10,3],[20,1]]
+
+st=5 et=7
+st=Math.max(7,5) et=st+4
+st=Math.max(10,11) et = st+3
+st=Math.max(20,14) et =20+1
+*/
