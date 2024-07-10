@@ -1,0 +1,20 @@
+class Solution {
+    public int minOperations(String[] logs) {
+    Stack<Integer> folderpath = new Stack<>();
+    String backtrack = "../";
+    String current = "./";
+    for(int i=0;i<logs.length;i++)
+    {
+        if(logs[i].equals(backtrack))
+        {
+            if(!folderpath.isEmpty())
+            folderpath.pop();
+        }
+        else if(!logs[i].equals(current))
+        {
+            folderpath.push(1);
+        }
+    }
+    return folderpath.size();        
+    }
+}
