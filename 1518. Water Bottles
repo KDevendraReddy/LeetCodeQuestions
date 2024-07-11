@@ -1,3 +1,6 @@
+https://www.youtube.com/watch?v=kB2LGJTBkOU
+
+
 class Solution {
     public int numWaterBottles(int numBottles, int numExchange) {
         int ans=numBottles;
@@ -20,3 +23,5 @@ numbottles + emptybottles1/numExchange + (emptybottles1/numExchange)+(emptybottl
 emptybottles1 = (numbottles )
 emptybottles2 = (emptybottles1/numExchange)+(emptybottles1%numExchange)
 */
+
+
