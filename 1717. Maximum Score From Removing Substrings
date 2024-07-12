@@ -1,0 +1,50 @@
+class Solution {
+    public int maximumGain(String s, int x, int y) {
+        char first[]= new char[2];
+        char second[]= new char[2];
+        int fp=0,sp=0;
+        if(x>=y)
+        {
+            fp=x;
+            sp=y;
+            first[0]='a';first[1]='b';
+            second[0]='b';second[1]='a';
+        }
+        else
+        {
+            fp=y;
+            sp=x;
+            first[0]='b';first[1]='a';
+            second[0]='a';second[1]='b';
+        }
+        int i = Math.min(s.indexOf('a'),s.indexOf('b'));
+        if(i==-1)
+        return 0;
+        s=s.substring(i);
+        int ans[] = new int[1];
+        s=getanswer(s,first,fp,ans,true);
+        s=getanswer(s,second,sp,ans,false);
+        return ans[0];
+    }
+    public static String getanswer(String s,char[] c,int points,int ans[],boolean reverse)
+    {
+       Stack<Character> st = new Stack<>();
+       for(int i=0;i<s.length();i++)
+       {
+        if(s.charAt(i)==c[1])
+        {
+            if(!st.isEmpty()&&st.peek()==c[0])
+            {
+                st.pop();
+                ans[0]+=points;
+                continue;
+            }
+        }
+        st.push(s.charAt(i));
+       } 
+       if(reverse == false)
+       return "";
+       String stStr = st.stream().map(k -> k.toString()).collect(Collectors.joining(""));
+       return stStr;
+    }
+}
