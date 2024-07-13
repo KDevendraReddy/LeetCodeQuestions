@@ -1,0 +1,88 @@
+class Tuple{
+    int position;
+    int power;
+    public Tuple(int position,int power)
+    {
+        this.position=position;
+        this.power=power;
+    }
+}
+class Solution {
+    public List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions) {
+        PriorityQueue<Tuple> pq = new PriorityQueue<Tuple>((a,b)->a.position-b.position);
+        for(int i=0;i<directions.length();i++)
+        {
+            if(directions.charAt(i)=='L')
+            {
+                healths[i]=0-healths[i];
+            }
+            Tuple t = new Tuple(positions[i],healths[i]);
+            //System.out.println(t.power+" "+t.position);
+            pq.offer(t);
+        }
+        Stack<Tuple> st = new Stack<>();
+        while(!pq.isEmpty())
+        {
+            
+            Colision(pq.poll(),st);
+        }
+        HashMap<Integer,Tuple> hm = new HashMap<>();
+        while(!st.isEmpty())
+        {
+            hm.put(st.peek().position,st.pop());
+        }
+        List<Integer> ans = new ArrayList<>();
+        for(int i=0;i<positions.length;i++)
+        {
+            if(hm.containsKey(positions[i]))
+            ans.add(Math.abs(hm.get(positions[i]).power));
+        }
+        return ans;
+    }
+    public void Colision(Tuple P,Stack<Tuple> st)
+    {
+       // System.out.print("Sent :"+P.power+" ");
+        int h = P.power;
+        if(h<0)
+        {
+            if(st.isEmpty())
+            {
+                //System.out.print("Pushed :"+P.power+" ");
+                st.push(P);
+                return;
+            }
+            else if(st.peek().power<0)
+            {
+                //System.out.print("Pushed :"+P.power+" ");
+                st.push(P);
+                return;
+            }
+            else
+            {
+                if(st.peek().power ==Math.abs(h))
+                {
+                   // System.out.print("Poped :"+st.peek().power +" ");
+                    st.pop();
+                    return;
+                }
+                else if(st.peek().power > Math.abs(h))
+                {
+                    st.peek().power=st.peek().power-1;
+                    return;
+                }
+                else
+                {
+                    //System.out.print("Poped :"+st.peek().power+" ");
+                    st.pop();
+                    P.power=P.power+1;
+                    Colision(P,st);
+                }
+            }
+        }
+        else
+        {
+            st.push(P);
+            //System.out.print("Pushed :"+P.power+" ");
+        }
+    }
+}
