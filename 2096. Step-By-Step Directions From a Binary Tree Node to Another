@@ -1,1 +1,72 @@
 2096. Step-By-Step Directions From a Binary Tree Node to Another
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public String getDirections(TreeNode root, int startValue, int destValue) {
+        //Get LCA 
+        TreeNode LCA = lowestCommonAncestor(root,startValue,destValue);
+        StringBuilder pathToStart = new StringBuilder();
+        StringBuilder pathToEnd = new StringBuilder();
+        StringBuilder direction = new StringBuilder();
+        getPath(LCA,pathToStart,startValue);
+        getPath(LCA,pathToEnd,destValue);
+        direction.append("U".repeat(pathToStart.length()));
+        direction.append(pathToEnd);
+        return direction.toString();
+
+    }
+    public TreeNode lowestCommonAncestor(TreeNode root, Integer p, Integer q) {
+        if(root==null || root.val == p|| root.val == q)
+        return root;
+        TreeNode Left = lowestCommonAncestor(root.left,p,q);
+        TreeNode Right = lowestCommonAncestor(root.right,p,q);
+        if(Left==null)
+        {
+            return Right;
+        }
+        else if(Right == null)
+        {
+            return Left;
+        }
+        else
+            return root;
+    }
+
+    public boolean getPath(TreeNode root,StringBuilder arr,int target)
+    {
+        if(root==null)
+        return false;
+
+        if(root.val==target)
+        return true;
+
+        arr.append("L");
+        if(getPath(root.left,arr,target))
+        {
+            return true;
+        }
+        arr.setLength(arr.length()-1);
+        arr.append("R");
+         if(getPath(root.right,arr,target))
+        {
+            return true;
+        }
+        arr.setLength(arr.length()-1);
+        return false;
+
+    }
+}
