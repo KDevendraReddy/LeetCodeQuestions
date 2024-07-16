@@ -9,50 +9,19 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        List<TreeNode> list1 = new ArrayList<TreeNode>();
-        List<TreeNode> list2 = new ArrayList<TreeNode>();
-        if(root==p)
-        list1.add(root);
+        if(root==null || root == p|| root == q)
+        return root;
+        TreeNode Left = lowestCommonAncestor(root.left,p,q);
+        TreeNode Right = lowestCommonAncestor(root.right,p,q);
+        if(Left==null)
+        {
+            return Right;
+        }
+        else if(Right == null)
+        {
+            return Left;
+        }
         else
-        getPath(root,p.val,list1);
-        if(root==q)
-        list2.add(root);
-        else
-        getPath(root,q.val,list2);
-        TreeNode ans= new TreeNode();
-       /* for (int i=0;i<list1.size();i++)
-        {
-            System.out.print(list1.get(i).val+" ");
-        }
-        System.out.println();
-        for(int i=0;i<list2.size();i++)
-        {
-            System.out.print(list2.get(i).val+" ");
-        }*/
-        for(int i=0;i<Math.min(list1.size(),list2.size());i++)
-        {
-            if(list1.get(i)==list2.get(i))
-            ans=list1.get(i);
-            else
-            break;
-        }
-        return ans;
-    }
-    public boolean getPath(TreeNode root,int target,List<TreeNode> list)
-    {
-        if(root== null)
-        return false;
-
-        list.add(root);
-        if(root.val == target)
-        {
-            return true;
-        }
-        if(getPath(root.left,target,list)||getPath(root.right,target,list))
-        return true;
-
-        list.remove(root);
-        return false;
-
+            return root;
     }
 }
