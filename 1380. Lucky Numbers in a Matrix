@@ -1,0 +1,25 @@
+class Solution {
+    public List<Integer> luckyNumbers (int[][] matrix) {
+        List<Integer> luckyNum = new ArrayList<>();
+        for(int row = 0; row < matrix.length; row++){
+            int index = 0, min = Integer.MAX_VALUE;
+            for(int col = 0; col < matrix[row].length; col++){
+                if(matrix[row][col] < min){
+                    min = matrix[row][col];
+                    index = col;
+                }
+            }
+            boolean isTrue = true;
+            for(int col = 0; col < matrix.length; col++){
+                if(matrix[row][index] < matrix[col][index]){
+                    isTrue = false;
+                    break;
+                }
+            }
+            if(isTrue){
+                luckyNum.add(matrix[row][index]);
+            }
+        }
+        return luckyNum;
+    }
+}
