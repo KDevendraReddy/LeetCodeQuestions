@@ -1,0 +1,9 @@
+class Solution {
+    public String losingPlayer(int x, int y) {
+        y=y/4;
+        int z=Math.min(x,y);
+        if(z%2==0)
+        return "Bob";
+        return "Alice";
+    }
+}
