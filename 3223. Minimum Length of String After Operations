@@ -1,0 +1,46 @@
+class Solution {
+    public int minimumLength(String s) {
+        if(s.length()<3)
+        return s.length();
+       
+        HashMap<Character,List<Integer>> hm = new HashMap<>();
+        int max=0;
+        for(int i=0;i<s.length();i++)
+        {
+            char k=s.charAt(i);
+            if(hm.containsKey(k))
+            {
+                List<Integer> ls=hm.get(k);
+                ls.add(i);
+                hm.put(k,ls);
+            }
+            else
+            {
+                List<Integer> ls = new ArrayList<>();
+                ls.add(i);
+                hm.put(k,ls);
+            }
+            if(hm.get(k).size()>max)
+            max=hm.get(k).size();
+        }
+        int ans=s.length();
+        if(max<=2)
+        return ans;
+
+         for(char i='a';i<='z';i++)
+         {
+            if(hm.containsKey(i))
+            {
+                int k = hm.get(i).size(); 
+                if(k>=3)
+                {
+                    int numberdeductions = ((k-3)/2)+1;
+                    ans=ans-(2*numberdeductions);
+                }
+            }
+            
+         }
+         return ans;
+
+    }
+}
