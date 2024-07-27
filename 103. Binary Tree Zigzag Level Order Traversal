@@ -1,4 +1,4 @@
-103 binary Tree Zigzag level order traversal
+103 binary Tree Zigzag level order traversal.
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
