@@ -1,5 +1,4 @@
-100 
-Same tree
+100   Same tree
 
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
