@@ -1,0 +1,29 @@
+class Solution {
+    public int minFlips(int[][] grid) {
+        int rowWiseFlips=0,colWiseFlips=0;
+        int m= grid.length;
+        int n= grid[0].length;
+        for(int i=0;i<grid.length;i++)
+        {   
+            int flips=0;
+            for(int j=0;j<n/2;j++)
+            {
+                if(grid[i][j]!=grid[i][n-1-j])
+                flips++;
+            }
+            rowWiseFlips = rowWiseFlips+flips;
+        }
+
+         for(int i=0;i<n;i++)
+        {   
+            int flips=0;
+            for(int j=0;j<m/2;j++)
+            {
+                if(grid[j][i]!=grid[m-1-j][i])
+                flips++;
+            }
+            colWiseFlips = colWiseFlips+flips;
+        }
+        return Math.min(colWiseFlips,rowWiseFlips);
+    }
+}
