@@ -1,0 +1,77 @@
+class Solution {
+    public int[][] spiralMatrixIII(int rows, int col, int rStart, int cStart) {
+       int arr[][]= new int[rows][col];
+       int ans[][]= new int[rows*col][2];
+       int c=0;
+       int inc =1;
+       int i=0;
+       ans[c][0]=rStart;
+        ans[c][1]=cStart;
+        c++;
+       while(c!= rows*col)
+       {
+        //right
+            i=0;
+            while(i<inc)
+            {
+                cStart++;
+                if((cStart<col && cStart>=0)&&(rStart>=0 && rStart<rows))
+                {
+                    ans[c][0]=rStart;
+                    ans[c][1]=cStart;
+                    c++;
+                   // System.out.println("R"+c);
+                }
+                
+                i++;
+            }
+            //down
+            i=0;
+            while(i<inc)
+            {
+                rStart++;
+                if((cStart<col && cStart>=0)&&(rStart>=0 && rStart<rows))
+                {
+                    ans[c][0]=rStart;
+                    ans[c][1]=cStart;
+                    c++;
+                   // System.out.println("D"+c);
+                }
+                i++;
+            }
+            inc++;
+
+
+            //left
+            i=0;
+            while(i<inc)
+            {
+                cStart--;
+                if((cStart<col && cStart>=0)&&(rStart>=0 && rStart<rows))
+                {
+                    ans[c][0]=rStart;
+                    ans[c][1]=cStart;
+                    c++;
+                   // System.out.println("L"+c);
+                }
+                i++;
+            }
+            //Up
+            i=0;
+            while(i<inc)
+            {
+                rStart--;
+                if((cStart<col && cStart>=0)&&(rStart>=0 && rStart<rows))
+                {
+                    ans[c][0]=rStart;
+                    ans[c][1]=cStart;
+                    c++;
+                   // System.out.println("U"+c);
+                }
+                i++;
+            }
+            inc++;
+       }
+       return ans;
+    }
+}
