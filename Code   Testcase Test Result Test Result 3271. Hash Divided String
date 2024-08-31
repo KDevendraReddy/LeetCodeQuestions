@@ -1,0 +1,17 @@
+class Solution {
+    public String stringHash(String s, int k) {
+       int a=0;
+       String ans="";
+       for(int i=0;i<s.length()/k;i++)
+       {
+            a=0;
+            for(int j=(k*i);j<(k*(i+1));j++)
+            {
+                a=a+((s.charAt(j)-'a'));
+            }
+            a=a%26;
+            ans=ans+(char)('a'+a);
+       }
+        return ans;
+    }
+}
